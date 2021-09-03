@@ -91,7 +91,8 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  //Controllo se le visite future nn sono già passate
+  //Controllo quali visite future sono ancora da fare
+  //poichè non vengono rimosse automaticamente quelle "future-passate"
   List<Opd> getFutureVisits(List<Opd> vis) {
     final now = DateTime.now();
     List<Opd> formattedVisit = [];
@@ -103,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
     return formattedVisit;
   }
 
+  //recupero solo le terapie in corso
   List<Therapy> getTherapy(List<Therapy> ther) {
     final now = DateTime.now();
     List<Therapy> formattedTherapy = [];
@@ -114,11 +116,12 @@ class _LoginPageState extends State<LoginPage> {
     return formattedTherapy;
   }
 
+  //recupero solo le visite passate
   List<Opd> getPastVisits(List<Opd> vis) {
     final now = DateTime.now();
     List<Opd> formattedVisit = [];
     for (var visit in vis) {
-      if (DateTime.parse(visit.nextVisitDate.toString()).isBefore(now)) {
+      if (DateTime.parse(visit.visitDate.toString()).isBefore(now)) {
         formattedVisit.add(visit);
       }
     }

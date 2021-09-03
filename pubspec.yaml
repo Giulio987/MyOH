@@ -33,6 +33,7 @@ dependencies:
   google_fonts: ^2.0.0
   path_provider: ^2.0.2
   intl: ^0.17.0
+  expansion_card: ^0.1.0
   
 dev_dependencies:
   flutter_test:

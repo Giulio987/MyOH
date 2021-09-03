@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_hospital_user/PastVisitPage.dart';
 import 'package:open_hospital_user/PatientPage.dart';
 import 'package:open_hospital_user/models/examin.dart';
 import 'package:open_hospital_user/models/operation.dart';
@@ -151,7 +152,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Padding(padding: EdgeInsets.all(5.0)),
                     ElevatedButton(
-                      onPressed: widget.pastVisit.length == 0 ? null : () {},
+                      onPressed: widget.pastVisit.length == 0
+                          ? null
+                          : () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      PastVisitPage(widget.pastVisit)));
+                            },
                       child: Text("Vedi tutte"),
                       style: ButtonStyle(
                           backgroundColor:

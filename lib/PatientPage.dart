@@ -14,9 +14,11 @@ class PatientPage extends StatelessWidget {
     //print(deviceWidth);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.black87,
+        centerTitle: true,
         title: Text(
           "Paziente " + patient!.code.toString(),
-          style: TextStyle(fontSize: 17),
+          style: TextStyle(color: Colors.red.shade800),
         ),
       ),
       body: deviceWidth > 1000
