@@ -1,4 +1,4 @@
-# open_hospital_user
+# MyOH
 
 A Flutter project for the Informatici Senza Frontiere Team.
 
