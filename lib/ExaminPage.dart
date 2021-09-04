@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'models/opd.dart';
+import 'package:open_hospital_user/models/examin.dart';
 import 'package:expansion_card/expansion_card.dart';
-import 'package:intl/intl.dart'; //date formattater
+import 'package:intl/intl.dart';
 
-class PastVisitPage extends StatelessWidget {
-  final List<Opd> pastVisit;
-  const PastVisitPage(this.pastVisit);
+class ExaminPage extends StatelessWidget {
+  final List<Examin> examin;
+  const ExaminPage(this.examin);
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +14,13 @@ class PastVisitPage extends StatelessWidget {
         backgroundColor: Colors.black87,
         centerTitle: true,
         title: Text(
-          "Visite Passate",
+          "Esaminazioni",
           style: TextStyle(
               color: Colors.red.shade800, fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView.builder(
-        itemCount: pastVisit.length,
+        itemCount: examin.length,
         itemBuilder: (context, index) => ExpansionCard(
           trailing: IconTheme(
               data: new IconThemeData(color: Colors.red.shade800),
@@ -36,8 +36,7 @@ class PastVisitPage extends StatelessWidget {
               children: <Widget>[
                 Text(
                   DateFormat.yMMMMEEEEd()
-                      .format(
-                          DateTime.parse(pastVisit[index].visitDate.toString()))
+                      .format(DateTime.parse(examin[index].pex_date.toString()))
                       .toString(),
                   style: TextStyle(
                     fontSize: 19,
@@ -45,45 +44,51 @@ class PastVisitPage extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                Text(
-                  "Next: " +
-                      DateFormat.yMMMMEEEEd()
-                          .format(DateTime.parse(
-                              pastVisit[index].nextVisitDate.toString()))
-                          .toString(),
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
-                ),
               ],
             ),
           ),
           children: <Widget>[
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Causa primaria: " +
-                      pastVisit[index].disease!['description'].toString(),
+                  "Altezza: " + examin[index].pex_height.toString(),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  "Larghezza: " + examin[index].pex_weight.toString(),
                   style: TextStyle(fontSize: 15, color: Colors.black),
                 ),
                 Text(
-                  pastVisit[index].disease2 == null
-                      ? "Non ci sono cause secondarie"
-                      : "Causa secondaria: " +
-                          pastVisit[index].disease2!['description'].toString(),
+                  "Pressione sangue MIN: " +
+                      examin[index].pex_pa_min.toString(),
                   style: TextStyle(fontSize: 15, color: Colors.black),
                 ),
                 Text(
-                  pastVisit[index].disease3 == null
-                      ? "Non ci sono altre cause"
-                      : "Altra causa: " +
-                          pastVisit[index].disease3!['description'].toString(),
+                  "Pressione sangue MAX: " +
+                      examin[index].pex_pa_max.toString(),
                   style: TextStyle(fontSize: 15, color: Colors.black),
-                )
+                ),
+                Text(
+                  "Frequenza cardiaca: " + examin[index].pex_fc.toString(),
+                  style: TextStyle(fontSize: 15, color: Colors.black),
+                ),
+                Text(
+                  "Temperatura: " + examin[index].pex_temp!.toString(),
+                  style: TextStyle(fontSize: 15, color: Colors.black),
+                ),
+                Text(
+                  "Saturazione: " + examin[index].pex_sat.toString(),
+                  style: TextStyle(fontSize: 15, color: Colors.black),
+                ),
+                Text(
+                  "Note: " + examin[index].pex_note.toString(),
+                  style: TextStyle(fontSize: 15, color: Colors.black),
+                ),
               ],
             ),
           ],

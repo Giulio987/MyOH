@@ -18,7 +18,10 @@ class PatientPage extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "Paziente " + patient!.code.toString(),
-          style: TextStyle(color: Colors.red.shade800),
+          style: TextStyle(
+            color: Colors.red.shade800,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: deviceWidth > 1000

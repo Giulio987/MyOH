@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'models/opd.dart';
 import 'package:expansion_card/expansion_card.dart';
-import 'package:intl/intl.dart'; //date formattater
+import 'package:intl/intl.dart';
+import 'package:open_hospital_user/models/operation.dart';
 
-class PastVisitPage extends StatelessWidget {
-  final List<Opd> pastVisit;
-  const PastVisitPage(this.pastVisit);
+class OperationPage extends StatelessWidget {
+  final List<Operation> op;
+  const OperationPage(this.op);
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +14,13 @@ class PastVisitPage extends StatelessWidget {
         backgroundColor: Colors.black87,
         centerTitle: true,
         title: Text(
-          "Visite Passate",
+          "Operazioni",
           style: TextStyle(
               color: Colors.red.shade800, fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView.builder(
-        itemCount: pastVisit.length,
+        itemCount: op.length,
         itemBuilder: (context, index) => ExpansionCard(
           trailing: IconTheme(
               data: new IconThemeData(color: Colors.red.shade800),
@@ -36,8 +36,7 @@ class PastVisitPage extends StatelessWidget {
               children: <Widget>[
                 Text(
                   DateFormat.yMMMMEEEEd()
-                      .format(
-                          DateTime.parse(pastVisit[index].visitDate.toString()))
+                      .format(DateTime.parse(op[index].opDate.toString()))
                       .toString(),
                   style: TextStyle(
                     fontSize: 19,
@@ -45,45 +44,29 @@ class PastVisitPage extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                Text(
-                  "Next: " +
-                      DateFormat.yMMMMEEEEd()
-                          .format(DateTime.parse(
-                              pastVisit[index].nextVisitDate.toString()))
-                          .toString(),
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
-                ),
               ],
             ),
           ),
           children: <Widget>[
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Causa primaria: " +
-                      pastVisit[index].disease!['description'].toString(),
+                  "Descrizione: " + op[index].description.toString(),
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  "Risultato: " + op[index].opResult.toString(),
                   style: TextStyle(fontSize: 15, color: Colors.black),
                 ),
                 Text(
-                  pastVisit[index].disease2 == null
-                      ? "Non ci sono cause secondarie"
-                      : "Causa secondaria: " +
-                          pastVisit[index].disease2!['description'].toString(),
+                  "Tipo: " + op[index].type!['description'].toString(),
                   style: TextStyle(fontSize: 15, color: Colors.black),
                 ),
-                Text(
-                  pastVisit[index].disease3 == null
-                      ? "Non ci sono altre cause"
-                      : "Altra causa: " +
-                          pastVisit[index].disease3!['description'].toString(),
-                  style: TextStyle(fontSize: 15, color: Colors.black),
-                )
               ],
             ),
           ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:open_hospital_user/ExaminPage.dart';
+import 'package:open_hospital_user/NextVisitPage.dart';
 import 'package:open_hospital_user/PastVisitPage.dart';
 import 'package:open_hospital_user/PatientPage.dart';
 import 'package:open_hospital_user/models/examin.dart';
@@ -121,7 +123,10 @@ class _HomePageState extends State<HomePage> {
                               patient: widget.patient,
                             )));
                   },
-                  child: Text("I TUOI DATI"),
+                  child: Text(
+                    "I TUOI DATI",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(Colors.red.shade800)),
@@ -159,7 +164,10 @@ class _HomePageState extends State<HomePage> {
                                   builder: (context) =>
                                       PastVisitPage(widget.pastVisit)));
                             },
-                      child: Text("Vedi tutte"),
+                      child: Text(
+                        "Vedi tutte",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.red.shade800)),
@@ -194,7 +202,10 @@ class _HomePageState extends State<HomePage> {
                     Padding(padding: EdgeInsets.all(5.0)),
                     ElevatedButton(
                       onPressed: widget.operation.length == 0 ? null : () {},
-                      child: Text("Vedi tutte"),
+                      child: Text(
+                        "Vedi tutte",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.red.shade800)),
@@ -228,8 +239,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Padding(padding: EdgeInsets.all(5.0)),
                     ElevatedButton(
-                      onPressed: widget.examin.length == 0 ? null : () {},
-                      child: Text("Vedi tutte"),
+                      onPressed: widget.examin.length == 0
+                          ? null
+                          : () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      ExaminPage(widget.examin)));
+                            },
+                      child: Text(
+                        "Vedi tutte",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all(Colors.red.shade800)),
@@ -254,7 +274,10 @@ class _HomePageState extends State<HomePage> {
                         itemCount: widget.therapy.length,
                         itemBuilder: (context, index) => ExpansionTile(
                           //backgroundColor: Colors.red.shade800,
-                          leading: Icon(Icons.spa),
+                          leading: IconTheme(
+                              data:
+                                  new IconThemeData(color: Colors.red.shade800),
+                              child: new Icon(Icons.arrow_forward)),
                           title: Text(
                             "Terapia N°" +
                                 widget.therapy[index].therapyID.toString(),
@@ -336,7 +359,10 @@ class _HomePageState extends State<HomePage> {
                             itemCount: widget.therapy.length,
                             itemBuilder: (context, index) => ExpansionTile(
                               //backgroundColor: Colors.red.shade800,
-                              leading: Icon(Icons.spa),
+                              leading: IconTheme(
+                                  data: new IconThemeData(
+                                      color: Colors.red.shade800),
+                                  child: new Icon(Icons.arrow_forward)),
                               title: Text(
                                 "Terapia N°" +
                                     widget.therapy[index].therapyID.toString(),
@@ -391,7 +417,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                           ElevatedButton(
                             onPressed: () {},
-                            child: Text("Vedi Tutte"),
+                            child: Text(
+                              "Vedi Tutte",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
                                   Colors.red.shade800),
@@ -423,7 +452,10 @@ class _HomePageState extends State<HomePage> {
                               DateFormat.Hm()
                                   .format(orderedFutureVisit[index])
                                   .toString()),
-                          leading: Icon(Icons.arrow_right_alt),
+                          leading: IconTheme(
+                              data:
+                                  new IconThemeData(color: Colors.red.shade800),
+                              child: new Icon(Icons.arrow_right_alt)),
                         ),
                       )
                     : Column(
@@ -432,7 +464,7 @@ class _HomePageState extends State<HomePage> {
                             //scrollDirection: Axis.vertical,
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: widget.futurevisit.length,
+                            itemCount: 5,
                             itemBuilder: (context, index) => ListTile(
                               title: Text(DateFormat.yMMMMEEEEd()
                                   .format(orderedFutureVisit[index])
@@ -441,12 +473,22 @@ class _HomePageState extends State<HomePage> {
                                   DateFormat.Hm()
                                       .format(orderedFutureVisit[index])
                                       .toString()),
-                              leading: Icon(Icons.arrow_right_alt),
+                              leading: IconTheme(
+                                  data: new IconThemeData(
+                                      color: Colors.red.shade800),
+                                  child: new Icon(Icons.arrow_right_alt)),
                             ),
                           ),
                           ElevatedButton(
-                            onPressed: () {},
-                            child: Text("Vedi Tutte"),
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      NextVisitPage(widget.futurevisit)));
+                            },
+                            child: Text(
+                              "Vedi Tutte",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(
                                   Colors.red.shade800),

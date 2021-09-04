@@ -28,7 +28,7 @@ class Examin {
       pex_ID: json['pex_ID'],
       pex_date: json['pex_date'],
       patientCode: json['patientCode'],
-      pex_height: json['pex_height	'],
+      pex_height: json['pex_height'],
       pex_weight: json['pex_weight'],
       pex_pa_min: json['pex_pa_min'],
       pex_pa_max: json['pex_pa_max'],
