@@ -20,12 +20,17 @@ class NextVisitPage extends StatelessWidget {
         ),
       ),
       body: SfCalendar(
-        dataSource: AppointmentDataSource(_getDataSource()),
-        view: CalendarView.week,
+          dataSource: AppointmentDataSource(_getDataSource()),
+          view: CalendarView.schedule,
+          scheduleViewSettings: ScheduleViewSettings(
+            hideEmptyScheduleWeek: true,
+            //appointmentItemHeight: 70,
+          )
+/*           view: CalendarView.week,
         timeSlotViewSettings:
-            TimeSlotViewSettings(timeInterval: Duration(hours: 2)),
-        //showCurrentTimeIndicator: true,
-      ),
+            TimeSlotViewSettings(timeInterval: Duration(hours: 2)), */
+          //showCurrentTimeIndicator: true,
+          ),
     );
   }
 

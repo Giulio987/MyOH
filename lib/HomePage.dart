@@ -33,13 +33,13 @@ class _HomePageState extends State<HomePage> {
     for (var visit in widget.pastVisit) {
       if (DateTime.parse(visit.visitDate.toString())
           .isAfter(DateTime.parse(lastVisit))) {
+        //print("prova");
         lastVisit = visit.visitDate.toString();
       }
-
-      String lastVisitFormatted =
-          DateFormat.yMMMd().format(DateTime.parse(lastVisit));
-      return lastVisitFormatted;
     }
+    String lastVisitFormatted =
+        DateFormat.yMMMd().format(DateTime.parse(lastVisit));
+    return lastVisitFormatted;
   }
 
   String? getLastOperation() {
@@ -49,10 +49,9 @@ class _HomePageState extends State<HomePage> {
           .isAfter(DateTime.parse(lastOp))) {
         lastOp = operation.opDate.toString();
       }
-      String lastOpFormatted =
-          DateFormat.yMMMd().format(DateTime.parse(lastOp));
-      return lastOpFormatted;
     }
+    String lastOpFormatted = DateFormat.yMMMd().format(DateTime.parse(lastOp));
+    return lastOpFormatted;
   }
 
   String? getLastExamin() {
@@ -67,6 +66,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  //ordina le visite dalla più vicina nella lista
   List<DateTime> orderByDate() {
     List<DateTime> orderedFutureVisit = [];
     for (int i = 0; i < widget.futurevisit.length; i++) {
@@ -77,9 +77,20 @@ class _HomePageState extends State<HomePage> {
     return orderedFutureVisit;
   }
 
+  List<Therapy> getLastTherapy() {
+    List<Therapy> tileTherapy = [];
+    for (int i = 4; i < widget.therapy.length; i++) {
+      tileTherapy.add(widget.therapy[i]);
+    }
+    return tileTherapy;
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<DateTime> orderedFutureVisit = orderByDate();
+    final List<Therapy> lastTherapy = getLastTherapy();
+    double deviceWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
         appBar: AppBar(
           // automaticallyImplyLeading: false, // rimuove il back button
@@ -113,9 +124,11 @@ class _HomePageState extends State<HomePage> {
                   "Benvenuto " + widget.patient.firstName.toString(),
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
+                Padding(padding: EdgeInsets.all(2.5)),
                 Text("Abbiamo in archivio questi dati che ti riguardano",
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                Padding(padding: EdgeInsets.all(5.0)),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -131,8 +144,9 @@ class _HomePageState extends State<HomePage> {
                       backgroundColor:
                           MaterialStateProperty.all(Colors.red.shade800)),
                 ),
+                Divider(),
 /////////////////////////////////////////VISITE//////////////////////////////
-                Padding(padding: EdgeInsets.all(5.0)),
+                //Padding(padding: EdgeInsets.all(5.0)),
                 Text(
                     "Visite Effettuate: " +
                         widget.pastVisit.length
@@ -175,7 +189,8 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
 /////////////////////////////////////////OPERAZIONI//////////////////////////////
-                Padding(padding: EdgeInsets.all(5.0)),
+                Divider(),
+                //Padding(padding: EdgeInsets.all(5.0)),
                 Text(
                     "Operazioni Effettuate: " +
                         widget.operation.length
@@ -213,7 +228,8 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
 /////////////////////////////////////////ESAMINAZIONI//////////////////////////////
-                Padding(padding: EdgeInsets.all(5.0)),
+                //Padding(padding: EdgeInsets.all(5.0)),
+                Divider(),
                 Text(
                     "Esaminazioni Effettuate: " +
                         widget.examin.length
@@ -257,7 +273,8 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
 /////////////////////////////////////////TERAPIE//////////////////////////////
-                Padding(padding: EdgeInsets.all(5.0)),
+                //Padding(padding: EdgeInsets.all(5.0)),
+                Divider(),
                 Text(
                     widget.therapy.length == 0
                         ? "Non hai terapie in corso"
@@ -285,66 +302,72 @@ class _HomePageState extends State<HomePage> {
                                 fontSize: 16.0, fontWeight: FontWeight.w500),
                           ),
                           children: <Widget>[
-                            ListTile(
-                              title: Row(
-                                children: [
-                                  Icon(Icons.play_arrow),
-                                  Text("Inizio: " +
-                                      DateFormat.yMMMd().format(DateTime.parse(
-                                          widget.therapy[index].startDate
-                                              .toString()))),
-                                  Padding(
-                                      padding: EdgeInsets.only(right: 10.0)),
-                                  Icon(Icons.close),
-                                  Text("Fine: " +
-                                      DateFormat.yMMMd().format(DateTime.parse(
-                                          widget.therapy[index].endDate
-                                              .toString()))),
-                                ],
-                              ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon(Icons.arrow_right),
-                                      Text("Farmaco: " +
-                                          widget.therapy[index].medicalId
-                                              .toString()),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.arrow_right),
-                                      Text("Quantità: " +
-                                          widget.therapy[index].qty.toString()),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.arrow_right),
-                                      Text("Frequenza giornaliera: " +
-                                          widget.therapy[index].freqInDay
-                                              .toString()),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.arrow_right),
-                                      Text("Frequenza nel tempo: " +
-                                          widget.therapy[index].freqInPeriod
-                                              .toString()),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.arrow_right),
-                                      Text("Note: " +
-                                          widget.therapy[index].note
-                                              .toString()),
-                                    ],
-                                  ),
-                                ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10.0),
+                              child: ListTile(
+                                title: Row(
+                                  children: [
+                                    Icon(Icons.play_arrow),
+                                    Text("Inizio: " +
+                                        DateFormat.yMMMd().format(
+                                            DateTime.parse(widget
+                                                .therapy[index].startDate
+                                                .toString()))),
+                                    Padding(
+                                        padding: EdgeInsets.only(right: 10.0)),
+                                    Icon(Icons.close),
+                                    Text("Fine: " +
+                                        DateFormat.yMMMd().format(
+                                            DateTime.parse(widget
+                                                .therapy[index].endDate
+                                                .toString()))),
+                                  ],
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(Icons.arrow_right),
+                                        Text("Farmaco: " +
+                                            widget.therapy[index].medicalId
+                                                .toString()),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.arrow_right),
+                                        Text("Quantità: " +
+                                            widget.therapy[index].qty
+                                                .toString()),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.arrow_right),
+                                        Text("Frequenza giornaliera: " +
+                                            widget.therapy[index].freqInDay
+                                                .toString()),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.arrow_right),
+                                        Text("Frequenza nel tempo: " +
+                                            widget.therapy[index].freqInPeriod
+                                                .toString()),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(Icons.arrow_right),
+                                        Text("Note: " +
+                                            widget.therapy[index].note
+                                                .toString()),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                           ],
@@ -356,7 +379,7 @@ class _HomePageState extends State<HomePage> {
                             physics: NeverScrollableScrollPhysics(),
                             //scrollDirection: Axis.vertical,
                             shrinkWrap: true,
-                            itemCount: widget.therapy.length,
+                            itemCount: 4,
                             itemBuilder: (context, index) => ExpansionTile(
                               //backgroundColor: Colors.red.shade800,
                               leading: IconTheme(
@@ -371,51 +394,55 @@ class _HomePageState extends State<HomePage> {
                                     fontWeight: FontWeight.w500),
                               ),
                               children: <Widget>[
-                                ListTile(
-                                  title: Row(
-                                    children: [
-                                      Icon(Icons.play_arrow),
-                                      Text("Inizio: " +
-                                          DateFormat.yMMMd().format(
-                                              DateTime.parse(widget
-                                                  .therapy[index].startDate
-                                                  .toString()))),
-                                      Padding(
-                                          padding:
-                                              EdgeInsets.only(right: 10.0)),
-                                      Icon(Icons.close),
-                                      Text("Fine: " +
-                                          DateFormat.yMMMd().format(
-                                              DateTime.parse(widget
-                                                  .therapy[index].endDate
-                                                  .toString()))),
-                                    ],
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Farmaco: " +
-                                          widget.therapy[index].medicalId
-                                              .toString()),
-                                      Text("Quantità: " +
-                                          widget.therapy[index].qty.toString()),
-                                      Text("Frequenza giornaliera: " +
-                                          widget.therapy[index].freqInDay
-                                              .toString()),
-                                      Text("Frequenza nel tempo: " +
-                                          widget.therapy[index].freqInPeriod
-                                              .toString()),
-                                      Text("Note: " +
-                                          widget.therapy[index].note
-                                              .toString()),
-                                    ],
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: ListTile(
+                                    title: Row(
+                                      children: [
+                                        Icon(Icons.play_arrow),
+                                        Text("Inizio: " +
+                                            DateFormat.yMMMd().format(
+                                                DateTime.parse(widget
+                                                    .therapy[index].startDate
+                                                    .toString()))),
+                                        Padding(
+                                            padding:
+                                                EdgeInsets.only(right: 10.0)),
+                                        Icon(Icons.close),
+                                        Text("Fine: " +
+                                            DateFormat.yMMMd().format(
+                                                DateTime.parse(widget
+                                                    .therapy[index].endDate
+                                                    .toString()))),
+                                      ],
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text("Farmaco: " +
+                                            widget.therapy[index].medicalId
+                                                .toString()),
+                                        Text("Quantità: " +
+                                            widget.therapy[index].qty
+                                                .toString()),
+                                        Text("Frequenza giornaliera: " +
+                                            widget.therapy[index].freqInDay
+                                                .toString()),
+                                        Text("Frequenza nel tempo: " +
+                                            widget.therapy[index].freqInPeriod
+                                                .toString()),
+                                        Text("Note: " +
+                                            widget.therapy[index].note
+                                                .toString()),
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],
                             ),
                           ),
-                          ElevatedButton(
+                          /* ElevatedButton(
                             onPressed: () {},
                             child: Text(
                               "Vedi Tutte",
@@ -425,11 +452,111 @@ class _HomePageState extends State<HomePage> {
                               backgroundColor: MaterialStateProperty.all(
                                   Colors.red.shade800),
                             ),
+                          ), */
+                          ExpansionTile(
+                            //backgroundColor: Colors.red.shade800,
+                            /* leading: IconTheme(
+                                data: new IconThemeData(
+                                    color: Colors.red.shade800),
+                                child: new Icon(Icons.arrow_forward)), */
+                            title: Center(
+                              child: Container(
+                                width: deviceWidth * 0.8,
+                                height: 40,
+                                child: Card(
+                                  color: Colors.red.shade800,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)),
+                                  child: Center(
+                                    child: Text(
+                                      "Mostra Tutte",
+                                      style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            children: <Widget>[
+                              ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                //scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: lastTherapy.length,
+                                itemBuilder: (context, index) => ExpansionTile(
+                                  //backgroundColor: Colors.red.shade800,
+                                  leading: IconTheme(
+                                      data: new IconThemeData(
+                                          color: Colors.red.shade800),
+                                      child: new Icon(Icons.arrow_forward)),
+                                  title: Text(
+                                    "Terapia N°" +
+                                        lastTherapy[index].therapyID.toString(),
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  children: <Widget>[
+                                    ListTile(
+                                      title: Row(
+                                        children: [
+                                          Icon(Icons.play_arrow),
+                                          Text("Inizio: " +
+                                              DateFormat.yMMMd().format(
+                                                  DateTime.parse(widget
+                                                      .therapy[index].startDate
+                                                      .toString()))),
+                                          Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 10.0)),
+                                          Icon(Icons.close),
+                                          Text("Fine: " +
+                                              DateFormat.yMMMd().format(
+                                                  DateTime.parse(widget
+                                                      .therapy[index].endDate
+                                                      .toString()))),
+                                        ],
+                                      ),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text("Farmaco: " +
+                                              lastTherapy[index]
+                                                  .medicalId
+                                                  .toString()),
+                                          Text("Quantità: " +
+                                              lastTherapy[index]
+                                                  .qty
+                                                  .toString()),
+                                          Text("Frequenza giornaliera: " +
+                                              lastTherapy[index]
+                                                  .freqInDay
+                                                  .toString()),
+                                          Text("Frequenza nel tempo: " +
+                                              lastTherapy[index]
+                                                  .freqInPeriod
+                                                  .toString()),
+                                          Text("Note: " +
+                                              lastTherapy[index]
+                                                  .note
+                                                  .toString()),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
 /////////////////////////////////////////VISITE FUTURE//////////////////////////////
-                Padding(padding: EdgeInsets.all(5.0)),
+                //Padding(padding: EdgeInsets.all(2.0)),
+                Divider(),
                 Text(
                     widget.futurevisit.length == 0
                         ? "NON hai visite prenotate"
@@ -464,7 +591,7 @@ class _HomePageState extends State<HomePage> {
                             //scrollDirection: Axis.vertical,
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: 5,
+                            itemCount: 4,
                             itemBuilder: (context, index) => ListTile(
                               title: Text(DateFormat.yMMMMEEEEd()
                                   .format(orderedFutureVisit[index])

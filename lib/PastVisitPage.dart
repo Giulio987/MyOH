@@ -63,10 +63,10 @@ class PastVisitPage extends StatelessWidget {
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Causa primaria: " +
+                  "Malattia primaria: " +
                       pastVisit[index].disease!['description'].toString(),
                   style: TextStyle(fontSize: 15, color: Colors.black),
                 ),
@@ -79,8 +79,8 @@ class PastVisitPage extends StatelessWidget {
                 ),
                 Text(
                   pastVisit[index].disease3 == null
-                      ? "Non ci sono altre cause"
-                      : "Altra causa: " +
+                      ? ""
+                      : "Altra maattia: " +
                           pastVisit[index].disease3!['description'].toString(),
                   style: TextStyle(fontSize: 15, color: Colors.black),
                 )
