@@ -1,0 +1,55 @@
+%% Overleaf			
+%% Software Manual and Technical Document Template	
+%% 									
+%% This provides an example of a software manual created in Overleaf.
+
+\documentclass{ol-softwaremanual}
+
+% Packages used in this example
+\usepackage{graphicx}  % for including images
+\usepackage{microtype} % for typographical enhancements
+\usepackage{minted}    % for code listings
+\usepackage{amsmath}   % for equations and mathematics
+\usepackage{listings}
+\setminted{style=friendly,fontsize=\small}
+\renewcommand{\listoflistingscaption}{List of Code Listings}
+\usepackage{hyperref}  % for hyperlinks
+\usepackage[a4paper,top=4.2cm,bottom=4.2cm,left=3.5cm,right=3.5cm]{geometry} % for setting page size and margins
+
+% Custom macros used in this example document
+\newcommand{\doclink}[2]{\href{#1}{#2}\footnote{\url{#1}}}
+\newcommand{\cs}[1]{\texttt{\textbackslash #1}}
+
+% Frontmatter data; appears on title page
+\title{Documentation}
+\version{1.0}
+\author{Giulio Milani}
+\softwarelogo{\includegraphics[width=8cm]{MyOH.png}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\listoflistings
+\newpage
+
+\section{Introduction}
+\href{https://github.com/Giulio987/MyOH}{My Open Hospital} (MyOH) is an application that allows the user to retrieve and view their data from the main Open Hospital (OH) database. The application is written in Dart using the Flutter framework, which implies the possibility of obtaining executables for every type of supported operating system, at the moment: Android, IOS, Linux, Windows and MacOS.
+\section{Why?}
+The application was created to support Open Hospital, in particular it has the purpose of showing the user a history of his data in the database and displaying a series of reminders and relevant information
+
+\section{Building}
+ To install the stand alone application, you can do it through the APK (only for android at the moment) file, which is located in the github repository \href{https://github.com/Giulio987/MyOH/releases/tag/v1.0-beta0.1}{repository}.
+\subsection{How to}
+Flutter is required on the device for building the project. If it's not installed, it's possible to follow the guide at the following \href{https://flutter.dev/docs/get-started/install}{link}. The following command verifies the dependencies
+\begin{lstlisting}[language=bash]
+  $ flutter doctor
+\end{lstlisting}
+After that, clone the project from the github repository, access its folder and run the command 
+\begin{lstlisting}[language=bash]
+  $ flutter pub get
+\end{lstlisting}
+which will install the dependencies needed to build the application.
+Before running the application, enter in the VScode settings (it depends on which editor it's in use) using the \textit{CTRL + ,} command, and search for "Flutter run additional args", then add the option "--no-sound-null-safety"; this is because some libraries used do not support null-safety yet.
+\end{document}
