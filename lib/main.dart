@@ -73,8 +73,37 @@ class _LoginPageState extends State<LoginPage> {
       //recupero solo le visite future
       List<Opd> futureVisit = getFutureVisits(visit);
       //Recupero le operazioni
-      List<Operation> operation =
-          await fetchOperation(http.Client(), p.code.toString());
+      List<Operation> operation = [
+        Operation(
+          code: "1",
+          description: "Prova Operazione",
+          lock: 0,
+          major: 0,
+          type: {"code": "Operation", "description": "Prova tipo operazione"},
+          opDate: "2021-09-08T07:50:41.140Z",
+          opResult: "N",
+        ),
+        Operation(
+          code: "2",
+          description: "Prova Operazione 2",
+          lock: 0,
+          major: 0,
+          type: {"code": "Operation", "description": "Prova tipo operazione 2"},
+          opDate: "2021-09-10T07:50:41.140Z",
+          opResult: "N",
+        ),
+        Operation(
+          code: "3",
+          description: "Prova Operazione 3",
+          lock: 0,
+          major: 0,
+          type: {"code": "Operation", "description": "Prova tipo operazione 3"},
+          opDate: "2021-09-06T07:50:41.140Z",
+          opResult: "N",
+        )
+      ];
+      //per recuperarle online
+      //await fetchOperation(http.Client(), p.code.toString());
       //recupero le esaminazioni a esso associate
       List<Examin> examin = await fetchExamin(http.Client(), p.code.toString());
       //recupero le terapie

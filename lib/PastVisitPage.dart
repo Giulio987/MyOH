@@ -40,7 +40,7 @@ class PastVisitPage extends StatelessWidget {
                           DateTime.parse(pastVisit[index].visitDate.toString()))
                       .toString(),
                   style: TextStyle(
-                    fontSize: 19,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),

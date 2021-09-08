@@ -39,7 +39,7 @@ class ExaminPage extends StatelessWidget {
                       .format(DateTime.parse(examin[index].pex_date.toString()))
                       .toString(),
                   style: TextStyle(
-                    fontSize: 19,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),

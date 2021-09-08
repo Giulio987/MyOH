@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:open_hospital_user/ExaminPage.dart';
 import 'package:open_hospital_user/NextVisitPage.dart';
+import 'package:open_hospital_user/OperationPage.dart';
 import 'package:open_hospital_user/PastVisitPage.dart';
 import 'package:open_hospital_user/PatientPage.dart';
 import 'package:open_hospital_user/models/examin.dart';
@@ -85,10 +86,21 @@ class _HomePageState extends State<HomePage> {
     return tileTherapy;
   }
 
+  List<Operation> orderOP() {
+    List<Operation> orderedOperation = widget.operation;
+    orderedOperation.sort((a, b) {
+      DateTime newA = DateTime.parse(a.opDate.toString());
+      DateTime newB = DateTime.parse(b.opDate.toString());
+      return newA.compareTo(newB);
+    });
+    return orderedOperation;
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<DateTime> orderedFutureVisit = orderByDate();
     final List<Therapy> lastTherapy = getLastTherapy();
+    final List<Operation> orderOp = orderOP();
     double deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -216,7 +228,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Padding(padding: EdgeInsets.all(5.0)),
                     ElevatedButton(
-                      onPressed: widget.operation.length == 0 ? null : () {},
+                      onPressed: widget.operation.length == 0
+                          ? null
+                          : () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      OperationPage(orderOp)));
+                            },
                       child: Text(
                         "Vedi tutte",
                         style: TextStyle(fontWeight: FontWeight.bold),

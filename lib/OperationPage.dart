@@ -3,6 +3,7 @@ import 'package:expansion_card/expansion_card.dart';
 import 'package:intl/intl.dart';
 import 'package:open_hospital_user/models/operation.dart';
 
+//MOCK OPERAZIONI
 class OperationPage extends StatelessWidget {
   final List<Operation> op;
   const OperationPage(this.op);
@@ -39,7 +40,7 @@ class OperationPage extends StatelessWidget {
                       .format(DateTime.parse(op[index].opDate.toString()))
                       .toString(),
                   style: TextStyle(
-                    fontSize: 19,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
